@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 public class PageController {
  @Value("${app.mode}") private String mode;
  @ModelAttribute public void common(Model model) {model.addAttribute("mode",mode);}
- @GetMapping({"/","/home"}) public String entry() {return "redirect:/admin/categories";}
+ @GetMapping({"/","/home"}) public String home(Model model) {model.addAttribute("page","home");return "home";}
  @GetMapping("/admin/categories") public String categories(Model model) {model.addAttribute("page","categories");return "index";}
  @GetMapping("/admin/products") public String products(Model model) {model.addAttribute("page","products");return "index";}
 }

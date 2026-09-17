@@ -28,6 +28,15 @@ class CatalogIntegrationTest {
   assertEquals(expected,response.getStatus(),response.getContentAsString());
   return response.getContentAsByteArray().length==0?json.getNodeFactory().nullNode():json.readTree(response.getContentAsByteArray());
  }
+ @Test void homeRoutesRenderDashboardWithoutRedirect() throws Exception {
+  for(String path:new String[]{"/","/home"}) {
+   mvc.perform(get(path))
+    .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.status().isOk())
+    .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.view().name("home"))
+    .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.content().string(org.hamcrest.Matchers.containsString("id=\"homeCategoryGrid\"")))
+    .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.content().string(org.hamcrest.Matchers.containsString("href=\"/home\"")));
+  }
+ }
  @Test void crudSearchPaginationValidationAndSwagger() throws Exception {
   long cat=call("POST","/api/categories",Map.of("categoryName","Nhóm kiểm thử"),201).path("body").path("categoryId").asLong();
   call("POST","/api/categories",Map.of("categoryName","  Nhóm kiểm thử  "),409);

@@ -171,6 +171,6 @@ async function init() {
  $('keyword').placeholder=isCategory?'Tìm theo tên danh mục…':'Tìm theo tên sản phẩm…';$('countLabel').textContent=isCategory?'Danh mục phù hợp':'Sản phẩm phù hợp';
  $('subtitle').hidden=page!=='home';
  if(page==='home') $('subtitle').textContent='Giá từ thấp đến cao';
- try {await loadCategories();await load();} catch(e) {notice(e.message);}
+ try {await loadCategories(); const params=new URLSearchParams(window.location.search); if(page==='products'){const id=params.get('categoryId');if(id&&state.categories.some(c=>String(c.categoryId)===id))$('categoryFilter').value=id; $('keyword').value=params.get('keyword')||'';} await load();} catch(e) {notice(e.message);}
 }
 init();

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Trang chủ | NOVA Desk</title><link rel="stylesheet" th:href="@{/css/app.css(v=6)}" href="/css/app.css"><script defer th:src="@{/js/home.js(v=6)}" src="/js/home.js"></script></head>
+<body th:attr="data-mode=${mode},data-page=${page},data-base=@{/}">
+<aside><a class="brand" th:href="@{/home}" href="/home"><span class="logo">N</span> NOVA<span class="brand-suffix">DESK</span></a>
+<nav><a th:href="@{/home}" href="/home" data-nav="home" class="active"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7 M5 9v12h5v-7h4v7h5V9"/></svg> Trang chủ</a><a th:href="@{/admin/categories}" data-nav="categories"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg> Danh mục</a><a th:href="@{/admin/products}" data-nav="products"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 9 5v8l-9 5-9-5V8Z M3 8l9 5 9-5 M12 13v8 M7 5.8l9 5"/></svg> Sản phẩm</a></nav>
+</aside>
+<div class="workspace"><header><div class="breadcrumb">NOVA <span>/</span> <b>Trang chủ</b></div><div class="profile"><div class="avatar">TC</div><div><b>Trần Quyết Chiến</b><small>LTWeb09</small></div></div></header>
+<main class="dashboard"><div class="page-heading"><h1>Tổng quan</h1><button id="refreshHome" class="secondary">Làm mới</button></div>
+<div id="homeNotice" role="status" aria-live="polite" hidden></div>
+<section class="dashboard-metrics"><a th:href="@{/admin/categories}"><span>Danh mục</span><strong id="homeCategories">—</strong><span class="metric-arrow">→</span></a><a th:href="@{/admin/products}"><span>Sản phẩm</span><strong id="homeProducts">—</strong><span class="metric-arrow">→</span></a></section>
+<section class="dashboard-section"><div class="section-heading"><h2>Danh mục</h2><a th:href="@{/admin/categories}">Quản lý danh mục →</a></div><div id="homeCategoryGrid" class="dashboard-categories" aria-live="polite"><p>Đang tải…</p></div></section>
+<section class="dashboard-section"><div class="section-heading"><h2>Sản phẩm</h2><a th:href="@{/admin/products}">Xem tất cả →</a></div><div id="homeProductGrid" class="dashboard-products" aria-live="polite"><p>Đang tải…</p></div></section>
+</main></div></body></html>
