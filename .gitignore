@@ -1,0 +1,14 @@
+target/
+data/
+uploads/
+.idea/
+.vscode/
+.settings/
+.classpath
+.project
+*.log
+.env
+application-local.properties
+
+# Cau hinh SQL Server ca nhan
+src/main/resources/application-sqlserver-local.properties

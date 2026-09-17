@@ -1,0 +1,181 @@
+{
+  "info": {
+    "name": "Muc 4 - RESTful AJAX",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8084"
+    },
+    {
+      "key": "categoryId",
+      "value": "1"
+    },
+    {
+      "key": "productId",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "01 - Tạo danh mục",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/categories",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"categoryName\": \"Nhóm Postman\",\n  \"icon\": \"\"\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.expect(pm.response.code).to.eql(201);",
+              "pm.collectionVariables.set(\"categoryId\", pm.response.json().body.categoryId);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 - Tìm kiếm phân trang danh mục",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/categories?keyword=Postman&page=0&size=1"
+      }
+    },
+    {
+      "name": "03 - Chi tiết danh mục",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/categories/{{categoryId}}"
+      }
+    },
+    {
+      "name": "04 - Sửa danh mục",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/categories/{{categoryId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"categoryName\": \"Nhóm Postman cập nhật\"\n}"
+        }
+      }
+    },
+    {
+      "name": "05 - Tạo sản phẩm",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/products",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"productName\": \"Sản phẩm Postman\",\n  \"quantity\": 10,\n  \"unitPrice\": 150000,\n  \"images\": \"\",\n  \"description\": \"Thực hành API\",\n  \"discount\": 0,\n  \"status\": 1,\n  \"categoryId\": \"{{categoryId}}\"\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.expect(pm.response.code).to.eql(201);",
+              "pm.collectionVariables.set(\"productId\", pm.response.json().body.productId);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "06 - Tìm kiếm phân trang sản phẩm",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/products?keyword=Postman&page=0&size=1&sort=priceAsc"
+      }
+    },
+    {
+      "name": "07 - Chi tiết sản phẩm",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/products/{{productId}}"
+      }
+    },
+    {
+      "name": "08 - Sửa sản phẩm",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/products/{{productId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"productName\": \"Sản phẩm Postman đã sửa\",\n  \"quantity\": 10,\n  \"unitPrice\": 160000,\n  \"images\": \"\",\n  \"description\": \"Thực hành API\",\n  \"discount\": 0,\n  \"status\": 1,\n  \"categoryId\": \"{{categoryId}}\"\n}"
+        }
+      }
+    },
+    {
+      "name": "09 - Xóa danh mục có SP (mong đợi 409)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/api/categories/{{categoryId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.expect(pm.response.code).to.eql(409);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "10 - Xóa sản phẩm",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/api/products/{{productId}}"
+      }
+    },
+    {
+      "name": "11 - Xóa danh mục",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/api/categories/{{categoryId}}"
+      }
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+package vn.iotstar.dto;
+import java.util.List;
+import org.springframework.data.domain.Page;
+public record PageDto<T>(List<T> content,int number,int size,long totalElements,int totalPages,boolean first,boolean last) {
+ public static <T> PageDto<T> from(Page<T> p) {return new PageDto<>(p.getContent(),p.getNumber(),p.getSize(),p.getTotalElements(),p.getTotalPages(),p.isFirst(),p.isLast());}
+}
